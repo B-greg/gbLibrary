@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -45,6 +46,18 @@ public abstract class GbBaseAdapter<T> extends BaseAdapter {
 
     public Context getContext() {
         return mContext;
+    }
+
+    public void appendItems(Collection<T> items){
+        this.items.addAll(items);
+    }
+
+    public void appendItem(T item){
+        this.items.add(item);
+    }
+
+    public void clear(){
+        this.items.clear();
     }
 
 }

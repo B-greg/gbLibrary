@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import org.json.JSONArray;
@@ -18,6 +21,15 @@ import org.json.JSONObject;
  * Created by gregoire on 7/28/14.
  */
 public class ActivityHelper {
+
+    public final static String TAG = "ActivityHelper";
+
+    protected Activity activity;
+    protected ProgressDialog progressDialog;
+
+    public ActivityHelper(Activity activity) {
+        this.activity = activity;
+    }
 
     public static void displayToast(String message, Context context){
         Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
@@ -71,10 +83,24 @@ public class ActivityHelper {
 
 
     public static ProgressDialog displayProgressDialog(Context context,String title, String content){
-        return ProgressDialog.show(context, title, content, true);
+        return ProgressDialog.show(context, StringHelper.replaceNull(title), StringHelper.replaceNull(content), true);
     }
 
     public static void dismissProgressDialog(ProgressDialog progressDialog){
+        progressDialog.dismiss();
+    }
+
+    public void displayProgressDialog(String title, String content){
+        if(activity == null){
+            Log.e(TAG, "Helper not instanciate" );
+            return;
+        }
+        dismissProgressDialog();
+        progressDialog = ProgressDialog.show(activity, StringHelper.replaceNull(title), StringHelper.replaceNull(content), true);
+    }
+
+    public void dismissProgressDialog(){
+        if(progressDialog == null)return;
         progressDialog.dismiss();
     }
 
@@ -90,6 +116,20 @@ public class ActivityHelper {
                 displayError = "Error read json";
             }
             ActivityHelper.alertbox(context, "ERROR"  ,displayError);
+        }
+    }
+
+
+
+    public static void hideKeyboard(Context c, IBinder windowToken) {
+        InputMethodManager mgr = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(windowToken, 0);
+    }
+
+    public void hideKeyboard(Window window) {
+        if (window != null && window.getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(window.getCurrentFocus().getWindowToken(), 0);
         }
     }
 
