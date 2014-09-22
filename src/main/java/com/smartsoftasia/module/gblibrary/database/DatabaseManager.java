@@ -16,7 +16,7 @@ import android.util.Log;
  * @date 12 oct. 2013
  * @todo 
  */
-public class DatabaseManager<T> implements IRepository<T> {
+public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> {
 
     private DatabaseHelper<T> helper;
     protected DatabaseManager(Context context, Class<T> TClass, List<Object> mList, String databaseName, int databaseVersion) {
@@ -103,7 +103,7 @@ public class DatabaseManager<T> implements IRepository<T> {
             public void run() {
                 if(list == null) return;
                 for(int i=0;i<list.size();i++){
-                    if(GetById(((DatabaseModel)list.get(i)).getId()) != null)
+                    if(GetById((list.get(i)).getId()) != null)
                        Update(list.get(i));
                     else
                         Add(list.get(i));
@@ -116,7 +116,7 @@ public class DatabaseManager<T> implements IRepository<T> {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                if(GetById(((DatabaseModel)item).getId()) != null)
+                if(GetById((item).getId()) != null)
                     Update(item);
                 else
                     Add(item);
