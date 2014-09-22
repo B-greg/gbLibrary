@@ -1,9 +1,15 @@
 package com.smartsoftasia.module.gblibrary.helper;
 
+import android.util.Log;
+
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by gregoire on 8/26/14.
  */
 public class StringHelper {
+
+    public static final String TAG = "StringHelper";
 
     public static String replaceNull(String input) {
         return input == null ? "" : input;
@@ -15,5 +21,17 @@ public class StringHelper {
         }else{
             return false;
         }
+    }
+
+    public static String byteArrayToString(byte[] content){
+        String stringContent = "";
+        if(content != null){
+            try {
+                stringContent = new String(content, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
+        return stringContent;
     }
 }

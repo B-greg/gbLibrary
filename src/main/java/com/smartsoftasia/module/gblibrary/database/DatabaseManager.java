@@ -6,6 +6,7 @@ import java.util.List;
 import com.j256.ormlite.table.TableUtils;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 
@@ -93,6 +94,34 @@ public class DatabaseManager<T> implements IRepository<T> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void saveList(final List<T>list){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(list == null) return;
+                for(int i=0;i<list.size();i++){
+                    if(GetById(((DatabaseModel)list.get(i)).getId()) != null)
+                       Update(list.get(i));
+                    else
+                        Add(list.get(i));
+                }
+            }
+        }).start();
+    }
+
+    public void save(final T item){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(GetById(((DatabaseModel)item).getId()) != null)
+                    Update(item);
+                else
+                    Add(item);
+            }
+        }).start();
     }
 
 }
