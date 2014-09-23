@@ -72,6 +72,10 @@ public class ActivityHelper {
         intent.setClass(activity, classActivity);
         activity.startActivity(intent);
     }
+    public static void startActivity(Intent intent , Activity activity, Class classActivity){
+        intent.setClass(activity, classActivity);
+        activity.startActivity(intent);
+    }
     public static void startActivityNoHistory(Activity activity, Class classActivity){
         Intent intent = new Intent();
         intent.setClass(activity, classActivity);

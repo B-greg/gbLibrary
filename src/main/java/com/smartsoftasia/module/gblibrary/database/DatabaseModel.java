@@ -2,6 +2,7 @@ package com.smartsoftasia.module.gblibrary.database;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.j256.ormlite.field.DatabaseField;
 
 import org.json.JSONArray;
@@ -44,10 +45,11 @@ public class DatabaseModel<T> {
         return item;
     }
 
-    public static <T> List<T> toObject(JSONArray json) throws IOException, JSONException {
-        List<T> items;
+    public static <E> List<E> toObject(JSONArray json, Class<E> type) throws IOException, JSONException {
+        List<E> items;
         ObjectMapper mapper = new ObjectMapper();
-        items = mapper.readValue(json.toString(),  new TypeReference<List<T>>(){});
+        items = mapper.readValue(json.toString(),  TypeFactory.defaultInstance().constructCollectionType(List.class,
+                type));
         return items;
     }
 

@@ -17,6 +17,31 @@ import org.json.JSONObject;
  * Created by gregoire on 8/29/14.
  */
 public class AbstractApi implements IHttpMethodes {
+
+    public interface IAbstractApi{
+        public interface IIndex{
+            public void onSuccess(int statusCode, JSONObject content);
+            public void onFail(int statusCode);
+        }
+        public interface IShow{
+            public void onSuccess(int statusCode ,JSONObject content);
+            public void onFail(int statusCode);
+        }
+        public interface ICreate{
+            public void onSuccess(int statusCode ,JSONObject content);
+            public void onFail(int statusCode);
+        }
+        public interface IUpdate{
+            public void onSuccess(int statusCode, JSONObject content);
+            public void onFail(int statusCode);
+        }
+        public interface IDelete{
+            public void onSuccess(int statusCode, JSONObject content);
+            public void onFail(int statusCode);
+        }
+    }
+
+
     private final static String TAG = "ApiAbstract";
     public final static int INDEX = 1;
     public final static int SHOW = 2;
@@ -31,6 +56,12 @@ public class AbstractApi implements IHttpMethodes {
     protected AsyncHttpResponse asyncHttpResponse;
     public Boolean isExecute;
     protected int methode;
+
+    protected IAbstractApi.IIndex indexListener;
+    protected IAbstractApi.ICreate createListener;
+    protected IAbstractApi.IDelete deleteListener;
+    protected IAbstractApi.IShow showListener;
+    protected IAbstractApi.IUpdate updateListener;
 
 
     public AbstractApi(){
