@@ -6,6 +6,10 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.provider.SyncStateContract;
+import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -13,6 +17,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Random;
 
 public class ImageHelper {
 
@@ -279,5 +292,69 @@ public class ImageHelper {
         bm.setPixels(pix, 0, w, 0, 0, w, h);
 
         return bm;
+    }
+
+
+    public static void downloadImagesToSdCard(String downloadUrl, String dir, String name) {
+        class ImageDownloadAndSave extends AsyncTask<String, Void, Bitmap> {
+            @Override
+            protected Bitmap doInBackground(String... arg0) {
+                downloadImagesToSdCard(arg0[0], arg0[1], arg0[2]);
+                return null;
+            }
+
+            private void downloadImagesToSdCard(String downloadUrl, String dir, String name) {
+                try {
+                    URL url = new URL(downloadUrl);
+                        /* making a directory in sdcard */
+                    String sdCard = Environment.getExternalStorageDirectory().toString() + dir;
+//                    File myDir = new File(sdCard);
+//
+//                        /*  if specified not exist create new */
+//                    if (!myDir.exists()) {
+//                        myDir.mkdir();
+//                        Log.v("", "inside mkdir");
+//                    }
+                    FileHelper.createDirIfNotExists(dir);
+
+                        /* checks the file and if it already exist delete */
+                    String fname = name;
+                    File file = new File(Environment.getExternalStorageDirectory() + dir, fname);
+                    if (file.exists())
+                        file.delete();
+
+                             /* Open a connection */
+                    URLConnection ucon = url.openConnection();
+                    InputStream inputStream = null;
+                    HttpURLConnection httpConn = (HttpURLConnection) ucon;
+                    httpConn.setRequestMethod("GET");
+                    httpConn.connect();
+
+                    if (httpConn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                        inputStream = httpConn.getInputStream();
+                    }
+
+                    FileOutputStream fos = new FileOutputStream(file);
+                    int totalSize = httpConn.getContentLength();
+                    int downloadedSize = 0;
+                    byte[] buffer = new byte[1024];
+                    int bufferLength = 0;
+                    while ((bufferLength = inputStream.read(buffer)) > 0) {
+                        fos.write(buffer, 0, bufferLength);
+                        downloadedSize += bufferLength;
+                        Log.i("Progress:", "downloadedSize:" + downloadedSize + "totalSize:" + totalSize);
+                    }
+
+                    fos.close();
+                    Log.d("test", "Image Saved in sdcard..");
+                } catch (IOException io) {
+                    io.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        ImageDownloadAndSave imageDownloadAndSave = new ImageDownloadAndSave();
+        imageDownloadAndSave.execute(downloadUrl, dir, name);
     }
 }

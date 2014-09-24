@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.util.Log;
 
 public final class FileHelper {
 
@@ -133,6 +135,25 @@ public final class FileHelper {
         ObjectOutput oo = new ObjectOutputStream(fos);
         oo.writeObject(objects);
         oo.close();
+    }
+
+    /**
+     * Create the Directory in the external sdcard if he not exist.
+     * @param path Full path of the directory witout external sdcard part.
+     * @return True if file exist or create / false if error
+     */
+    public static boolean createDirIfNotExists(String path) {
+        boolean ret = true;
+        Log.d("createDirIfNotExists", "path : " + path);
+        Log.d("createDirIfNotExists", "Full path : "+ Environment.getExternalStorageDirectory().getPath()+path);
+        File file = new File(Environment.getExternalStorageDirectory(), path);
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                Log.e("TravellerLog :: ", "Problem creating Image folder");
+                ret = false;
+            }
+        }
+        return ret;
     }
 
 

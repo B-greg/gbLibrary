@@ -126,7 +126,7 @@ public class DatabaseHelper<T> extends OrmLiteSqliteOpenHelper  {
 		simpleRuntimeDao = null;
 	}
 
-    protected Context getContext() {
+    public Context getContext() {
         return mContext;
     }
 

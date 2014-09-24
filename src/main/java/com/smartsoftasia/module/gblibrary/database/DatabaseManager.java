@@ -4,9 +4,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.j256.ormlite.table.TableUtils;
+import com.path.android.jobqueue.Job;
+import com.path.android.jobqueue.JobManager;
+import com.path.android.jobqueue.Params;
+import com.path.android.jobqueue.config.Configuration;
+import com.path.android.jobqueue.log.CustomLogger;
 
 import android.content.Context;
 import android.provider.ContactsContract;
+import android.renderscript.RenderScript;
 import android.util.Log;
 
 
@@ -98,30 +104,82 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
 
 
     public void saveList(final List<T>list){
-        new Thread(new Runnable() {
+        class SaveTask extends Job {
+            public static final int PRIORITY = 2;
+
+            protected SaveTask(Params params) {
+                super(new Params(PRIORITY).groupBy(JobHandler.DATABASE_GROUP));
+            }
+
             @Override
-            public void run() {
+            public void onAdded() {
+            }
+
+
+            @Override
+            public void onRun() throws Throwable {
                 if(list == null) return;
                 for(int i=0;i<list.size();i++){
                     if(GetById((list.get(i)).getId()) != null)
-                       Update(list.get(i));
+                        Update(list.get(i));
                     else
                         Add(list.get(i));
                 }
             }
-        }).start();
+
+            @Override
+            protected void onCancel() {
+
+            }
+
+            @Override
+            protected boolean shouldReRunOnThrowable(Throwable throwable) {
+                return false;
+            }
+        }
+        JobHandler.getInstance(helper.getContext()).getJobManager().addJobInBackground(new SaveTask(null));
+
     }
 
     public void save(final T item){
-        new Thread(new Runnable() {
+        class SaveTask extends Job {
+            public static final int PRIORITY = 1;
+
+            protected SaveTask(Params params) {
+                super(new Params(PRIORITY).groupBy(JobHandler.DATABASE_GROUP));
+            }
+
             @Override
-            public void run() {
+            public void onAdded() {
+
+            }
+
+            @Override
+            public void onRun() throws Throwable {
                 if(GetById((item).getId()) != null)
                     Update(item);
                 else
                     Add(item);
             }
-        }).start();
+
+            @Override
+            protected void onCancel() {
+
+            }
+
+            @Override
+            protected boolean shouldReRunOnThrowable(Throwable throwable) {
+                return false;
+            }
+        }
+        JobHandler.getInstance(helper.getContext()).getJobManager().addJobInBackground(new SaveTask(null));
+    }
+
+
+    public interface IDatabase{
+        public interface OnSearch<T>{
+            public void onSearch(List<T>results);
+        }
     }
 
 }
