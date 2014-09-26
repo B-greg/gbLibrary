@@ -23,7 +23,7 @@ import android.util.Log;
 
 public final class FileHelper {
 
-    private static String externalDirectoryPath(Context context, String directoryName) {
+    public static String externalDirectoryPath(Context context, String directoryName) {
         return context.getExternalFilesDir(null) + "/" + directoryName;
     }
 

@@ -22,21 +22,21 @@ public class DatabaseModel<T> {
 
     @DatabaseField(id = true, columnName = ID)
     @JsonProperty(ID)
-    public String id;
+    public int id;
 
     public DatabaseModel() {
     }
 
-    public DatabaseModel(String id) {
+    public DatabaseModel(int id) {
         this.id = id;
     }
 
-    public int getId() {
-        return Integer.valueOf(this.id);
+    public String getId() {
+        return String.valueOf(this.id);
     }
 
-    public void setId(int id) {
-        this.id = String.valueOf(id);
+    public void setId(String id) {
+        this.id = Integer.valueOf(id);
     }
 
 

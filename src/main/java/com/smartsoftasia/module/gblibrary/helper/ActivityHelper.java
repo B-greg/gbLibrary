@@ -2,6 +2,8 @@ package com.smartsoftasia.module.gblibrary.helper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -81,6 +83,13 @@ public class ActivityHelper {
         intent.setClass(activity, classActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
+    }
+
+    public static void remplaceFragment(Activity activity, Fragment newFragment, int fragmentId){
+        FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+        transaction.replace(fragmentId, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 

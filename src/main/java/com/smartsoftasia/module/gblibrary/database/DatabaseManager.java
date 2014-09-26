@@ -120,7 +120,7 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
             public void onRun() throws Throwable {
                 if(list == null) return;
                 for(int i=0;i<list.size();i++){
-                    if(GetById((list.get(i)).getId()) != null)
+                    if(GetById((list.get(i)).id) != null)
                         Update(list.get(i));
                     else
                         Add(list.get(i));
@@ -156,7 +156,7 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
 
             @Override
             public void onRun() throws Throwable {
-                if(GetById((item).getId()) != null)
+                if(GetById((item).id) != null)
                     Update(item);
                 else
                     Add(item);

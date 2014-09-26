@@ -9,6 +9,8 @@ import android.widget.ProgressBar;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 
 /**
  * Created by gregoire on 9/4/14.
@@ -73,6 +75,13 @@ public abstract class AbstractImageView extends ImageView {
                     .load(url)
                     .into(this);
         }
+    }
+
+    public void downloadImageFromFile(File file) {
+        if(file == null)return;
+            Picasso.with(getContext())
+                    .load(file)
+                    .into(this);
     }
 
     public void downloadImageFromURL(String url, ProgressBar downloadIndicator) {

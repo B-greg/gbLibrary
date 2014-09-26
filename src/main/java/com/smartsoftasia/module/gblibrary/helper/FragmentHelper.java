@@ -38,7 +38,7 @@ public class FragmentHelper extends ActivityHelper {
         fragment.setHasOptionsMenu(true);
     }
 
-    public void replaceFragmentWithoutStack(Fragment fragment, int id, String tag) {
+    public static void replaceFragmentWithoutStack(Activity activity, Fragment fragment, int id, String tag) {
         if(activity == null){
             Log.e(TAG, "Fragment Helper not instantiate" );
             return;
@@ -49,7 +49,7 @@ public class FragmentHelper extends ActivityHelper {
                 .commit();
     }
 
-    public void replaceFragmentStack(Fragment fragment, int id, String tag) {
+    public static void replaceFragmentStack(Activity activity, Fragment fragment, int id, String tag) {
         if(activity == null){
             Log.e(TAG, "Fragment Helper not instantiate");
             return;
