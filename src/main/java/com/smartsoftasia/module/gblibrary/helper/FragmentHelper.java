@@ -2,8 +2,9 @@ package com.smartsoftasia.module.gblibrary.helper;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Build;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 /**
@@ -38,23 +39,23 @@ public class FragmentHelper extends ActivityHelper {
         fragment.setHasOptionsMenu(true);
     }
 
-    public static void replaceFragmentWithoutStack(Activity activity, Fragment fragment, int id, String tag) {
+    public static void replaceFragmentWithoutStack(FragmentActivity activity, Fragment fragment, int id, String tag) {
         if(activity == null){
             Log.e(TAG, "Fragment Helper not instantiate" );
             return;
         }
-        activity.getFragmentManager()
+        activity.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(id, fragment, tag)
                 .commit();
     }
 
-    public static void replaceFragmentStack(Activity activity, Fragment fragment, int id, String tag) {
+    public static void replaceFragmentStack(FragmentActivity activity, Fragment fragment, int id, String tag) {
         if(activity == null){
             Log.e(TAG, "Fragment Helper not instantiate");
             return;
         }
-        activity.getFragmentManager()
+        activity.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(id, fragment, tag)
                 .addToBackStack(tag)

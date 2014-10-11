@@ -143,7 +143,7 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
 
     public void save(final T item){
         class SaveTask extends Job {
-            public static final int PRIORITY = 1;
+            public static final int PRIORITY = 2;
 
             protected SaveTask(Params params) {
                 super(new Params(PRIORITY).groupBy(JobHandler.DATABASE_GROUP));
@@ -175,10 +175,46 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
         JobHandler.getInstance(helper.getContext()).getJobManager().addJobInBackground(new SaveTask(null));
     }
 
+    public void getAllSync(IDatabase.OnGetAll<T> listener) {
+        class GetAllSync extends Job {
+            public static final int PRIORITY = 2;
+            private IDatabase.OnGetAll<T>  listener;
+
+            protected GetAllSync(Params params, IDatabase.OnGetAll<T>  listener) {
+                super(new Params(PRIORITY).groupBy(JobHandler.DATABASE_GROUP));
+                this.listener = listener;
+            }
+
+            @Override
+            public void onAdded() {
+
+            }
+
+            @Override
+            public void onRun() throws Throwable {
+                if(listener!=null) listener.onGetAll(DatabaseManager.this.GetAll());
+            }
+
+            @Override
+            protected void onCancel() {
+
+            }
+
+            @Override
+            protected boolean shouldReRunOnThrowable(Throwable throwable) {
+                return false;
+            }
+        }
+        JobHandler.getInstance(helper.getContext()).getJobManager().addJobInBackground(new GetAllSync(null,listener ));
+    }
+
 
     public interface IDatabase{
         public interface OnSearch<T>{
             public void onSearch(List<T>results);
+        }
+        public interface OnGetAll<T>{
+            public void onGetAll(List<T>results);
         }
     }
 

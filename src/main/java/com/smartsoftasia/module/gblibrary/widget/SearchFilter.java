@@ -28,7 +28,7 @@ public class SearchFilter extends SearchView implements SearchView.OnQueryTextLi
         super(context, attrs);
     }
 
-    private void setupSearchView(MenuItem searchItem) {
+    public void setupSearchView(MenuItem searchItem) {
 
         if (isAlwaysExpanded()) {
             setIconifiedByDefault(false);
@@ -55,13 +55,15 @@ public class SearchFilter extends SearchView implements SearchView.OnQueryTextLi
     }
 
     public boolean onQueryTextChange(String newText) {
-        if(listner != null){
-            listner.onSearchTextChange(newText);
-        }
         return false;
     }
 
+
+
     public boolean onQueryTextSubmit(String query) {
+        if(listner != null){
+            listner.onSearchTextChange(query);
+        }
         return false;
     }
 

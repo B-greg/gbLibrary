@@ -301,6 +301,7 @@ public class ImageHelper {
             File file;
             file = new File(path);
 
+            file.getParentFile().mkdirs();
             file.createNewFile();
             FileOutputStream ostream = new FileOutputStream(file);
 
@@ -321,11 +322,17 @@ public class ImageHelper {
             int downloadedSize = 0;
             byte[] buffer = new byte[1024];
             int bufferLength = 0;
-            while ((bufferLength = inputStream.read(buffer)) > 0) {
-                fos.write(buffer, 0, bufferLength);
-                downloadedSize += bufferLength;
-                Log.i("downloadImagesToSdCard::Progress", "downloadedSize:" + downloadedSize + "totalSize:" + totalSize);
+            try {
+                while ((bufferLength = inputStream.read(buffer))  > 0) {
+                    fos.write(buffer, 0, bufferLength);
+                    downloadedSize += bufferLength;
+                    Log.i("downloadImagesToSdCard::Progress", "downloadedSize:" + downloadedSize + "totalSize:" + totalSize);
+                }
+
+            }catch (Exception e){
+                Log.e("downloadImagesToSdCard::Error",e.toString());
             }
+
 
             fos.close();
             Log.d("downloadImagesToSdCard::Final", "Image Saved in sdcard..");

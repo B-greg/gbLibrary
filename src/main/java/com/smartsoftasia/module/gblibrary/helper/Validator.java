@@ -16,6 +16,25 @@ public class Validator {
         return string != null && !string.trim().equals("") && !string.trim().equals("null");
     }
 
+    public static String validate(String string) {
+        if( string == null || string.trim().equals("") || string.trim().equals("null")){
+            return "";
+        }else{
+            return string;
+        }
+    }
+
+    public static String validateUrl(String url){
+        if(url !=null){
+            if (!url.startsWith("http://") && !url.startsWith("https://")){
+                url = "http://" + url;
+            }
+        }else{
+            url = "http://";
+        }
+        return url;
+    }
+
     public static boolean isValidEmail(String email, boolean allowBlank) {
         return !isValid(email) ? allowBlank : android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
