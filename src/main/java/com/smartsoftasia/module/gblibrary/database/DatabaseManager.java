@@ -1,6 +1,7 @@
 package com.smartsoftasia.module.gblibrary.database;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import com.j256.ormlite.table.TableUtils;
@@ -20,7 +21,6 @@ import android.util.Log;
  * @author Gregoire BARRET
  * @file MeetingDatabaseManager.java
  * @date 12 oct. 2013
- * @todo 
  */
 public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> {
 
@@ -103,7 +103,7 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
     }
 
 
-    public void saveList(final List<T>list){
+    public void saveList(final Collection<T> list){
         class SaveTask extends Job {
             public static final int PRIORITY = 2;
 
@@ -119,11 +119,11 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
             @Override
             public void onRun() throws Throwable {
                 if(list == null) return;
-                for(int i=0;i<list.size();i++){
-                    if(GetById((list.get(i)).id) != null)
-                        Update(list.get(i));
+                for(T item : list){
+                    if(GetById(item.id) != null)
+                        Update(item);
                     else
-                        Add(list.get(i));
+                        Add(item);
                 }
             }
 

@@ -31,7 +31,8 @@ public abstract class GbBaseAdapter<T> extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        if(i < items.size()){
+        if(i<0) return null;
+        else if(i < items.size()){
             return items.get(i);
         }else if(items.size() > 0){
             return items.get(items.size()-1);

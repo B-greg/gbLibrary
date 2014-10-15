@@ -24,6 +24,14 @@ public class Validator {
         }
     }
 
+    public static String validateDouble(String string) {
+        if( string == null || string.trim().equals("") || string.trim().equals("null")){
+            return "0.0";
+        }else{
+            return string;
+        }
+    }
+
     public static String validateUrl(String url){
         if(url !=null){
             if (!url.startsWith("http://") && !url.startsWith("https://")){
