@@ -67,7 +67,6 @@ public class DateTimeUtil {
 
         }
         return dateFormated;
-
     }
 
     public static int getHashByDay(String date){
