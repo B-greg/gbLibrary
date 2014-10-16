@@ -6,15 +6,9 @@ import java.util.List;
 
 import com.j256.ormlite.table.TableUtils;
 import com.path.android.jobqueue.Job;
-import com.path.android.jobqueue.JobManager;
 import com.path.android.jobqueue.Params;
-import com.path.android.jobqueue.config.Configuration;
-import com.path.android.jobqueue.log.CustomLogger;
 
 import android.content.Context;
-import android.provider.ContactsContract;
-import android.renderscript.RenderScript;
-import android.util.Log;
 
 
 /**

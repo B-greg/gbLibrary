@@ -11,9 +11,6 @@ import com.smartsoftasia.module.gblibrary.imageView.Validator;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-
 /**
  * Created by gregoire on 9/21/14.
  */

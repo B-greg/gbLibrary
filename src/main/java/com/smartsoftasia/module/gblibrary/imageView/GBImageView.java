@@ -1,11 +1,7 @@
 package com.smartsoftasia.module.gblibrary.imageView;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 /**
  * Created by gui on 07/08/2014.

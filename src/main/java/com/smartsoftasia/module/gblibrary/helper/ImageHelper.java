@@ -6,9 +6,6 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.provider.SyncStateContract;
 import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -17,7 +14,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.smartsoftasia.module.gblibrary.imageView.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,7 +22,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Random;
 
 public class ImageHelper {
 

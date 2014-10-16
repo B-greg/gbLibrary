@@ -1,7 +1,6 @@
 package com.smartsoftasia.module.gblibrary.api;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
