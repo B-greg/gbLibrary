@@ -21,10 +21,13 @@ import java.util.List;
 public class DatabaseModel<T> {
 
     public final static String ID = "id";
+    public final static String ENABLE = "enable";
 
     @DatabaseField(id = true, columnName = ID)
     @JsonProperty(ID)
     public int id;
+    @DatabaseField(columnName = ENABLE)
+    public Boolean enable;
 
     public DatabaseModel() {
     }

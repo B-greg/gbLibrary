@@ -13,6 +13,7 @@ import com.path.android.jobqueue.log.CustomLogger;
 public class JobHandler {
 
     public final static String DATABASE_GROUP = "database";
+    public final static String DOWNLOADER_GROUP = "downloader";
     private static JobHandler instance;
     private JobManager jobManager;
 

@@ -13,5 +13,6 @@ public interface IRepository<T> {
 	public void Delete(T entite);
 	public void DeleteAll();
 	public void refresh(T entite);
+    public void CreateOrUpdate(T entite);
 	
 }
