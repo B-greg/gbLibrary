@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -72,18 +73,16 @@ public abstract class AbstractImageView extends ImageView {
 
     public void downloadImageFromURL(String url) {
         if (Validator.isValid(url)) {
-            Picasso.with(getContext())
+            PicassoHandler.getInstance(getContext()).getPicasso().with(getContext())
                     .load(url)
-                    .transform(transformation)
                     .into(this);
         }
     }
 
     public void downloadImageFromFile(File file) {
         if(file == null)return;
-            Picasso.with(getContext())
+        PicassoHandler.getInstance(getContext()).getPicasso().with(getContext())
                     .load(file)
-                    .transform(transformation)
                     .into(this);
     }
 

@@ -318,17 +318,19 @@ public class ImageHelper {
             byte[] buffer = new byte[1024];
             int bufferLength = 0;
             try {
-                while ((bufferLength = inputStream.read(buffer))  > 0) {
-                    fos.write(buffer, 0, bufferLength);
-                    downloadedSize += bufferLength;
-                    Log.i("downloadImagesToSdCard::Progress", "downloadedSize:" + downloadedSize + "totalSize:" + totalSize);
+                if(inputStream!=null) {
+                    while ((bufferLength = inputStream.read(buffer)) > 0) {
+                        fos.write(buffer, 0, bufferLength);
+                        downloadedSize += bufferLength;
+                        Log.i("downloadImagesToSdCard::Progress", "downloadedSize:" + downloadedSize + "totalSize:" + totalSize);
+                    }
                 }
 
             }catch (Exception e){
                 Log.e("downloadImagesToSdCard::Error",e.toString());
             }
 
-
+            if(inputStream!=null)inputStream.close();
             fos.close();
             Log.d("downloadImagesToSdCard::Final", "Image Saved in sdcard..");
     }

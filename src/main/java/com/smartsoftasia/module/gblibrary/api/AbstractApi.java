@@ -7,10 +7,13 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.smartsoftasia.module.gblibrary.helper.StringHelper;
+import com.smartsoftasia.module.gblibrary.helper.Validator;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.Locale;
 
 /**
  * Created by gregoire on 8/29/14.
@@ -129,7 +132,8 @@ public class AbstractApi implements IHttpMethodes {
 
     public static RequestParams newRequestParams(String token){
         RequestParams params = new RequestParams();
-        params.add("app_token", token);
+        params.add("app_token", Validator.validate(token));
+        params.add("locale", Validator.validate(Locale.getDefault().getLanguage()));
         return params;
     }
 
