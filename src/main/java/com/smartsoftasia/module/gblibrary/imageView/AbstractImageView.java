@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.smartsoftasia.module.gblibrary.helper.Validator;
 import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -71,19 +72,27 @@ public abstract class AbstractImageView extends ImageView {
         getLayoutParams().height = (int) h;
     }
 
+//    public void downloadImageFromURL(String url) {
+//        if (Validator.isValid(url)) {
+//            PicassoHandler.getInstance(getContext()).getPicasso().with(getContext())
+//                    .load(url)
+//                    .skipMemoryCache()
+//                    .into(this);
+//        }
+//    }
+//
+//    public void downloadImageFromFile(File file) {
+//        if(file == null)return;
+//        PicassoHandler.getInstance(getContext()).getPicasso().with(getContext())
+//                    .load(file)
+//                    .skipMemoryCache()
+//                    .into(this);
+//    }
+
     public void downloadImageFromURL(String url) {
         if (Validator.isValid(url)) {
-            PicassoHandler.getInstance(getContext()).getPicasso().with(getContext())
-                    .load(url)
-                    .into(this);
+            ImageDownloader.loadImage(url, this);
         }
-    }
-
-    public void downloadImageFromFile(File file) {
-        if(file == null)return;
-        PicassoHandler.getInstance(getContext()).getPicasso().with(getContext())
-                    .load(file)
-                    .into(this);
     }
 
     public void downloadImageFromURL(String url, ProgressBar downloadIndicator) {
@@ -91,6 +100,12 @@ public abstract class AbstractImageView extends ImageView {
             ImageDownloader.loadImage(url, this, downloadIndicator);
         } else {
             downloadIndicator.setVisibility(View.GONE);
+        }
+    }
+
+    public void downloadImageFromUri(String uri) {
+        if (Validator.isValid(uri)) {
+            ImageDownloader.loadImage("file:///" + uri, this);
         }
     }
 

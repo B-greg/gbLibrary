@@ -9,7 +9,6 @@ import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.table.TableUtils;
 import com.path.android.jobqueue.Job;
 import com.path.android.jobqueue.Params;
-import com.smartsoftasia.module.gblibrary.imageView.Validator;
 
 import android.content.Context;
 
@@ -44,7 +43,7 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
      *
      * @return the helper
      */
-    protected DatabaseHelper<T> getHelper() {
+    public DatabaseHelper<T> getHelper() {
         return helper;
     }
 

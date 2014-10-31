@@ -21,6 +21,7 @@ public class PicassoHandler {
         cache = new LruCache(context);
         picasso = new Picasso.Builder(context)
                 .memoryCache(cache)
+                //.memoryCache(new LruCache(512))
                 .executor(Executors.newSingleThreadExecutor())
                 .build();
     }

@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.smartsoftasia.module.gblibrary.imageView.Validator;
+import com.smartsoftasia.module.gblibrary.helper.Validator;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 

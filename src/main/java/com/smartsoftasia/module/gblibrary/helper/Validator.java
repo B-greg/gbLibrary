@@ -24,6 +24,22 @@ public class Validator {
         }
     }
 
+    public static String validateIntString(String string) {
+        if( string == null || string.trim().equals("") || string.trim().equals("null")){
+            return "0";
+        }else{
+            return string;
+        }
+    }
+
+    public static int validateInt(String string) {
+        if( string == null || string.trim().equals("") || string.trim().equals("null")){
+            return 0;
+        }else{
+            return Integer.valueOf(string);
+        }
+    }
+
     public static String validateDouble(String string) {
         if( string == null || string.trim().equals("") || string.trim().equals("null")){
             return "0.0";
