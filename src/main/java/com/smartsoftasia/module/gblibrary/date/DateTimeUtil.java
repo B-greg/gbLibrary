@@ -57,7 +57,7 @@ public class DateTimeUtil {
         if(mDate!= null){
             cal.setTime(mDate);
             SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
-            SimpleDateFormat month_date = new SimpleDateFormat("MMMMMMMMM");
+            SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
             int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
             dateFormated += dayFormat.format(cal.getTime());
             dateFormated += ", ";
@@ -83,7 +83,7 @@ public class DateTimeUtil {
         if(mDate!= null){
             cal.setTime(mDate);
             SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
-            SimpleDateFormat month_date = new SimpleDateFormat("MMMMMMMMM");
+            SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
             int dayOfMonth = cal.get(Calendar.DAY_OF_YEAR);
             int thisYear = cal.get(Calendar.YEAR);
             dateInt = thisYear*1000;
