@@ -5,13 +5,13 @@ import java.util.Collection;
 /**
  * Created by gregoire on 11/11/14.
  */
-public interface IRecycleAdapter {
+public interface IRecycleAdapter<T> {
 
         public Object getItem(int i);
 
-        public void appendItems(Collection<Object> items);
+        public void appendItems(Collection<T> items);
 
-        public void appendItem(Object item);
+        public void appendItem(T item);
 
         public void clear();
 
