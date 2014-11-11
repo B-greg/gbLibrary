@@ -7,7 +7,7 @@ import java.util.Collection;
  */
 public interface IRecycleAdapter<T> {
 
-        public Object getItem(int i);
+        public Object getItem(int position);
 
         public void appendItems(Collection<T> items);
 
