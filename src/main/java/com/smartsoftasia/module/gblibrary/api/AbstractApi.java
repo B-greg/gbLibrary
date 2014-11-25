@@ -71,8 +71,8 @@ public class AbstractApi implements IHttpMethodes {
         this.methode = 0;
         this.jsonHttpResponse = new JsonHttpResponse();
         this.asyncHttpResponse = new AsyncHttpResponse();
-        AbstractApi.client.setMaxRetriesAndTimeout(3,1000);
-        AbstractApi.client.setTimeout(3000);
+        AbstractApi.client.setMaxRetriesAndTimeout(3,20000);
+        AbstractApi.client.setTimeout(60000);
     };
 
     public void postExecute(int statusCode, String content){};

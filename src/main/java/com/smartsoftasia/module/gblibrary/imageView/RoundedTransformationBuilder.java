@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.widget.ImageView;
-import com.squareup.picasso.Transformation;
 
 public final class RoundedTransformationBuilder {
 
@@ -80,28 +79,5 @@ public final class RoundedTransformationBuilder {
     return this;
   }
 
-  public Transformation build() {
-    return new Transformation() {
-      @Override public Bitmap transform(Bitmap source) {
-        Bitmap transformed = RoundedDrawable.fromBitmap(source)
-            .setScaleType(mScaleType)
-            .setCornerRadius(mCornerRadius)
-            .setBorderWidth(mBorderWidth)
-            .setBorderColor(mBorderColor)
-            .setOval(mOval)
-            .toBitmap();
-        if (!source.equals(transformed)) {
-          source.recycle();
-        }
-        return transformed;
-      }
 
-      @Override public String key() {
-        return "r:" + mCornerRadius
-            + "b:" + mBorderWidth
-            + "c:" + mBorderColor
-            + "o:" + mOval;
-      }
-    };
-  }
 }

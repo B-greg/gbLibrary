@@ -8,9 +8,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.smartsoftasia.module.gblibrary.helper.Validator;
-import com.squareup.picasso.LruCache;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 import java.io.File;
 
@@ -126,25 +123,5 @@ public abstract class AbstractImageView extends ImageView {
     protected void onSizeChanged(int nw, int nh, int ow, int oh) {
         super.onSizeChanged(nw, nh, ow, oh);
     }
-
-    Transformation transformation = new Transformation() {
-
-        @Override public Bitmap transform(Bitmap source) {
-            int targetWidth = source.getHeight() / 4;
-
-            double aspectRatio = (double) source.getHeight() / (double) source.getWidth();
-            int targetHeight = (int) (targetWidth * aspectRatio);
-            Bitmap result = Bitmap.createScaledBitmap(source, targetWidth, targetHeight, false);
-            if (result != source) {
-                // Same bitmap is returned if sizes are the same
-                source.recycle();
-            }
-            return result;
-        }
-
-        @Override public String key() {
-            return "transformation" + " desiredWidth";
-        }
-    };
 
 }
