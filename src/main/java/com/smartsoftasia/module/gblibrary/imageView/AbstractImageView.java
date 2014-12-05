@@ -3,6 +3,7 @@ package com.smartsoftasia.module.gblibrary.imageView;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -102,6 +103,7 @@ public abstract class AbstractImageView extends ImageView {
 
     public void downloadImageFromUri(String uri) {
         if (Validator.isValid(uri)) {
+            Log.d(TAG, uri);
             ImageDownloader.loadImage("file:///" + uri, this);
         }
     }
