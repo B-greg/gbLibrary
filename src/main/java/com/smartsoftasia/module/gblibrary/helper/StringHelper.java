@@ -34,4 +34,14 @@ public class StringHelper {
         }
         return stringContent;
     }
+
+    public static String getFirstWord(String input){
+        String s = input;
+        if (input!=null){
+            if(input.contains(" ")) s=input.substring(0,  input.indexOf(" "));
+        } else {
+            s="";
+        }
+        return s;
+    }
 }

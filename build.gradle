@@ -5,7 +5,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.smartsoftasia.module.gblibrary"
+       // applicationId "com.smartsoftasia.module.gblibrary"
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
@@ -18,8 +18,6 @@ android {
     }
     buildTypes {
         release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     packagingOptions {

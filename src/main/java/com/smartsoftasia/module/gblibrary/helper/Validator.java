@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 
+import java.util.List;
+
 /**
  * Created by gui on 07/08/2014.
  */
@@ -38,6 +40,11 @@ public class Validator {
         }else{
             return Integer.valueOf(string);
         }
+    }
+
+
+    public static Boolean isValidList(List list){
+        return list != null && list.size() > 0;
     }
 
     public static String validateDouble(String string) {
