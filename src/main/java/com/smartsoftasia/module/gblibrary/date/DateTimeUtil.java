@@ -20,6 +20,8 @@ import java.util.TimeZone;
 
 import android.util.Log;
 
+import com.smartsoftasia.module.gblibrary.helper.Validator;
+
 /**
  * @author gregoire
  *
@@ -47,6 +49,8 @@ public class DateTimeUtil {
             return "";
     }
     public static String StringToString(String date) {
+        if(!Validator.isValid(date)) return "";
+
         SimpleDateFormat  formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
