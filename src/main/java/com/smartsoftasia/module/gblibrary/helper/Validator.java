@@ -18,11 +18,31 @@ public class Validator {
         return string != null && !string.trim().equals("") && !string.trim().equals("null");
     }
 
+    public static boolean isValidAllowEmpty(String string) {
+        return string != null && !string.equals("") && !string.equals("null");
+    }
+
     public static String validate(String string) {
         if( string == null || string.trim().equals("") || string.trim().equals("null")){
             return "";
         }else{
             return string;
+        }
+    }
+
+    public static String validateAllowBlank(String string) {
+        if( string == null || string.equals("") || string.equals("null")){
+            return "";
+        }else{
+            return string;
+        }
+    }
+
+    public static long validate(Long l) {
+        if( l == null){
+            return 0L;
+        }else{
+            return l;
         }
     }
 

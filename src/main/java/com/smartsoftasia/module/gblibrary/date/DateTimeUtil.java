@@ -27,7 +27,7 @@ import android.util.Log;
 public class DateTimeUtil {
 
 	private static final String TAG = "DateUtil";
-	private static SimpleDateFormat  formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+	private static SimpleDateFormat  formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
 	public static String dateTimeToString(Date date) {
@@ -37,6 +37,29 @@ public class DateTimeUtil {
 		else
 			return "";
 	}
+
+    public static String dateHourMinToString(Date date) {
+        SimpleDateFormat  formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        if(date!= null){
+            return(formatter.format(date));
+        }
+        else
+            return "";
+    }
+    public static String StringToString(String date) {
+        SimpleDateFormat  formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date newDate = null;
+        try {
+            newDate = format.parse(date);
+            format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            return format.format(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 
 	public static Date stringToDate(String date) throws ParseException {
 	    formatter.setTimeZone(TimeZone.getTimeZone("gmt"));
