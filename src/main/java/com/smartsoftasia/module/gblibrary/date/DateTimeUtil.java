@@ -61,7 +61,7 @@ public class DateTimeUtil {
             return format.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
-            return "";
+            return date;
         }
     }
 
