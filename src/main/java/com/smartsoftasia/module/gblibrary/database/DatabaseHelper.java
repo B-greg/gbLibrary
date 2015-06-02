@@ -75,7 +75,9 @@ public class DatabaseHelper<T> extends OrmLiteSqliteOpenHelper  {
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "onUpgrade");
-			TableUtils.dropTable(connectionSource, TClass, true);
+			for(Object mlistObject: this.mList){
+				TableUtils.dropTable(connectionSource, mlistObject.getClass(), true);
+			}
 			// after we drop the old databases, we create the new ones
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
