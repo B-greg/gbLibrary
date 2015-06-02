@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,12 +23,20 @@ public class DatabaseModel<T> {
 
     public final static String ID = "id";
     public final static String ENABLE = "enable";
+    public final static String UPDATED_AT = "updated_at";
+    public final static String CREATED_AT = "created_at";
 
     @DatabaseField(id = true, columnName = ID)
     @JsonProperty(ID)
     public int id;
     @DatabaseField(columnName = ENABLE)
     public Boolean enable;
+    @JsonProperty(CREATED_AT)
+    @DatabaseField(columnName = CREATED_AT)
+    public Date createdAt;
+    @JsonProperty(UPDATED_AT)
+    @DatabaseField(columnName = UPDATED_AT)
+    public Date updatedAt;
 
     public DatabaseModel() {
     }
@@ -59,5 +68,6 @@ public class DatabaseModel<T> {
                 type));
         return items;
     }
+
 
 }

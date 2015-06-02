@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
+import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.table.TableUtils;
@@ -126,6 +127,21 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
         }
     }
 
+    public T MaxCreatedAt(){
+        T items = null;
+        try{
+            QueryBuilder<T,Integer> qBuilder = getHelper().getDao().queryBuilder();
+            qBuilder.orderBy(DatabaseModel.UPDATED_AT, false);// false for descending order
+            qBuilder.limit(1l);
+            List<T> listOfOne = qBuilder.query();
+            items = listOfOne.get(0);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return items;
+    }
+
 
     /**
      * Save list.
@@ -193,6 +209,48 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
             public void onRun() throws Throwable {
                 item.enable = true;
                 CreateOrUpdate(item);
+            }
+
+            @Override
+            protected void onCancel() {
+
+            }
+
+            @Override
+            protected boolean shouldReRunOnThrowable(Throwable throwable) {
+                return false;
+            }
+        }
+        JobHandler.getInstance(helper.getContext()).getJobManager().addJobInBackground(new SaveTask(null));
+    }
+
+
+    /**
+     * Save void.
+     * Set ENABLE COLUMN to true before saving.
+     * This method work on job.
+     *
+     * @param id the id of the item
+     */
+    public void delete(final int id){
+        class SaveTask extends Job {
+            public static final int PRIORITY = 2;
+
+            protected SaveTask(Params params) {
+                super(new Params(PRIORITY).groupBy(JobHandler.DATABASE_GROUP));
+            }
+
+            @Override
+            public void onAdded() {
+
+            }
+
+            @Override
+            public void onRun() throws Throwable {
+                T item = GetById(id);
+                if(item != null){
+                    Delete(item);
+                }
             }
 
             @Override
