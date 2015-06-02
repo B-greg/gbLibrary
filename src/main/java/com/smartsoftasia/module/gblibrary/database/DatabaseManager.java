@@ -134,7 +134,9 @@ public class DatabaseManager<T extends DatabaseModel> implements IRepository<T> 
             qBuilder.orderBy(DatabaseModel.UPDATED_AT, false);// false for descending order
             qBuilder.limit(1l);
             List<T> listOfOne = qBuilder.query();
-            items = listOfOne.get(0);
+            if(listOfOne!=null && listOfOne.size()>0){
+                items = listOfOne.get(0);
+            }
 
         }catch (SQLException e){
             e.printStackTrace();
